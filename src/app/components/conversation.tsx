@@ -2,10 +2,13 @@
 
 import { useConversation } from '@11labs/react';
 import { useCallback } from 'react';
-import { Mic, MicOff, Activity, Volume2, Volume1 } from 'lucide-react';
+import { Mic, MicOff, Activity, Volume2, Volume1, Moon, Sun } from 'lucide-react';
 import { motion } from "framer-motion";
+import { useTheme } from './theme-provider';
 
 export function Conversation() {
+  const { theme, toggleTheme } = useTheme();
+
   const conversation = useConversation({
     onConnect: () => console.log('Connected'),
     onDisconnect: () => console.log('Disconnected'),
@@ -40,7 +43,14 @@ export function Conversation() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[40vh] w-full">
-      <div className="flex flex-col items-center gap-6 p-8 bg-white rounded-lg shadow-lg max-w-md w-full mx-auto">
+      <div className="flex flex-col items-center gap-6 p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg max-w-md w-full mx-auto">
+        <button
+          onClick={toggleTheme}
+          className="absolute top-4 right-4 p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200"
+        >
+          {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+        </button>
+        
         {conversation.status === 'connected' && (
           <div className="flex items-center gap-4">
             <motion.div
@@ -76,14 +86,14 @@ export function Conversation() {
         )}
         
         <div className="flex flex-col items-center gap-4 w-full">
-          <div className="flex items-center gap-2 text-gray-600">
+          <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
             <Activity className="w-5 h-5" />
             <span className="font-medium">
-              Status: <span className="text-blue-600">{conversation.status}</span>
+              Status: <span className="text-blue-600 dark:text-blue-400">{conversation.status}</span>
             </span>
           </div>
           
-          <div className="flex items-center gap-2 text-gray-600">
+          <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
             {conversation.isSpeaking ? (
               <>
                 <Volume2 className="w-5 h-5 text-green-500" />
