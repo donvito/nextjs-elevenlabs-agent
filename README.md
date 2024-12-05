@@ -1,4 +1,4 @@
-# ElevenLabs Conversational AI Template
+# ElevenLabs Conversational AI NextJS Template
 
 This is a template for a NextJS v15 application that uses ElevenLabs Conversational AI.
 
